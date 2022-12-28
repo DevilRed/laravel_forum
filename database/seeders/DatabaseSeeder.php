@@ -20,5 +20,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $threads = \App\Models\Thread::factory()->count(50)->create();
+        $threads->each(
+            function($thread){
+                \App\Models\Reply::factory()->count(10)->create(['thread_id' => $thread->id]);
+            });
+
+
     }
 }
