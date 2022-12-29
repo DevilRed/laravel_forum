@@ -13,4 +13,9 @@ class Reply extends Model
     {
         return $this->belongsTo(Thread::class);
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
