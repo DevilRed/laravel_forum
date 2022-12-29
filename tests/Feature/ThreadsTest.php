@@ -3,18 +3,18 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;// to automatically run migrations for test
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class ThreadsTest extends TestCase
 {
+    use DatabaseMigrations;
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @test
      */
-    public function test_the_application_returns_a_successful_response()
+    public function a_user_can_browse_threads()
     {
-        $response = $this->get('/');
+        $response = $this->get('/threads');
 
         $response->assertStatus(200);
     }
