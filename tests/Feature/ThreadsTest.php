@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Reply;
 use App\Models\Thread;
 use Illuminate\Foundation\Testing\DatabaseMigrations;// to automatically run migrations for test
 use Tests\TestCase;
@@ -10,6 +11,12 @@ use Tests\TestCase;
 class ThreadsTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function setUp():void
+    {
+        parent::setUp();
+        $this->thread = Thread::factory()->create();
+    }
     /**
      * @test
      */
@@ -25,9 +32,22 @@ class ThreadsTest extends TestCase
      */
     public function a_user_can_see_a_specific_thread()
     {
-        $thread = Thread::factory()->create();
+        $response = $this->get('/threads/' . $this->thread->id);
+        $response->assertSee($this->thread->title);
+    }
 
-        $response = $this->get('/threads/' . $thread->id);
-        $response->assertSee($thread->title);
+    /**
+     * @test
+     */
+    public function a_user_can_read_replies_that_are_associated_with_a_thread()
+    {
+        // given a thread
+        // and that thread includes replies
+        $reply = Reply::factory()->create(['thread_id' => $this->thread->id]);
+
+        // when we visit a thread page
+        // we should see its replies
+        $this->get('/threads/' . $this->thread->id)
+            ->assertSee($reply->body);
     }
 }
