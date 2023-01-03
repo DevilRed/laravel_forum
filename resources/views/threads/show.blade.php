@@ -5,7 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{$thread->title }}</div>
+                    <a class="card-header">
+                        <a href="#">{{$thread->creator->name }}</a> posted:
+                    {{$thread->title }}
+                    </div>
 
                     <div class="card-body">
                         {{ $thread->body }}
