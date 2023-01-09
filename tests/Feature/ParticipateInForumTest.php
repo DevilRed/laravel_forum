@@ -35,4 +35,14 @@ class ParticipateInForumTest extends TestCase
         $this->get($thread->path())
             ->assertSee($reply->body);
     }
+
+    /** @test */
+    public function unauthenticated_user_may_not_add_replies()
+    {
+        $thread = Thread::factory()->create();
+        $reply = Reply::factory()->make();
+        $this->post('/threads/'. $thread->id .'/replies', $reply->toArray());
+        $this->get($thread->path())
+            ->assertDontSee($reply->body);
+    }
 }

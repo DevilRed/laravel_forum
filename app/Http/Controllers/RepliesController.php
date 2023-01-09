@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class RepliesController extends Controller
 {
+
+
+    public function __construct()
+    {
+        // middleware that verifies the user of your application is authenticated
+        $this->middleware('auth');
+    }
+
     public function store(Thread $thread)
     {
         $thread->addReply([
