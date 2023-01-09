@@ -9,6 +9,8 @@ class Reply extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];// opposite of $fillable, specify fields which are not mass assignable
+
     public function thread()
     {
         return $this->belongsTo(Thread::class);

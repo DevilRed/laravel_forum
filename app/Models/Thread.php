@@ -9,6 +9,8 @@ class Thread extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];// to specify those fields which are not mass assignable.
+
     public function replies()
     {
         return $this->hasMany(Reply::class);
@@ -22,5 +24,11 @@ class Thread extends Model
     public function path()
     {
         return '/threads/' . $this->id;
+    }
+
+    public function addReply($reply)
+    {
+        // use the reply relationship
+        $this->replies()->create($reply);
     }
 }

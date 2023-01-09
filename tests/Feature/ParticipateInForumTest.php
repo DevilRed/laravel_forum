@@ -28,11 +28,11 @@ class ParticipateInForumTest extends TestCase
 
         // when the user adds a reply to the thread
         // for testing send json directly to simulate form submit
-        $reply = Reply::factory()->create();
+        $reply = Reply::factory()->make();// make saves data in memory
         $this->post('/threads/'. $thread->id .'/replies', $reply->toArray());
 
         // then their reply should be visible on the page
-        $this->get('/threads/' . $thread->path())
+        $this->get($thread->path())
             ->assertSee($reply->body);
     }
 }
