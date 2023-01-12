@@ -17,11 +17,10 @@ class CreateThreadsTest extends TestCase
     public function an_authenticated_user_can_create_new_forum_threads()
     {
         // given an authenticated user
-        $user = User::factory()->create();
-        $this->actingAs($user);
+        $this->signIn();
 
         // when we hit the endpoint to create a new thread
-        $thread = Thread::factory()->make();// make return the object in memory
+        $thread = make(Thread::class);// make return the object in memory
 
         // send data as array to endpoint
         $this->post('/threads', $thread->toArray());
@@ -36,7 +35,7 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function guestMayNotCreateThreads()
     {
-        $thread = Thread::factory()->make();
+        $thread = make(Thread::class);
         $this->post('/threads', $thread->toArray());
         // unauthenticated user will be redirected to the login route
         $this->get($thread->path())
