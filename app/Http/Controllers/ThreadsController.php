@@ -9,7 +9,7 @@ class ThreadsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['store']]);// unauthenticated user will be redirected to the login route
+        $this->middleware('auth', ['except' => ['index', 'show']]);// unauthenticated user will be redirected to the login route
     }
 
 
