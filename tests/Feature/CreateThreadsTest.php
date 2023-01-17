@@ -64,4 +64,12 @@ class CreateThreadsTest extends TestCase
         $thread = make(Thread::class, $overrides);
         return $this->post('/threads', $thread->toArray());
     }
+
+    /** @test */
+    public function a_thread_requires_a_body()
+    {
+        // to refactor test, breaking them down to what you are trying to do
+        $this->publishThread(['body' => null])
+            ->assertSessionHasErrors('body');
+    }
 }
