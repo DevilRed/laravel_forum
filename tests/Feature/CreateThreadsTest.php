@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Channel;
 use App\Models\Thread;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -71,5 +72,14 @@ class CreateThreadsTest extends TestCase
         // to refactor test, breaking them down to what you are trying to do
         $this->publishThread(['body' => null])
             ->assertSessionHasErrors('body');
+    }
+
+    /** @test */
+    public function a_thread_requires_a_valid_channel()
+    {
+        // using channel factory just to make sure inexistent channel rule is working
+        Channel::factory()->count(2)->create();
+        $this->publishThread(['channel_id' => null])
+            ->assertSessionHasErrors('channel_id');
     }
 }

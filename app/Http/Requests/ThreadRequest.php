@@ -25,7 +25,9 @@ class ThreadRequest extends FormRequest
     {
         return [
             'title' =>'required',
-            'body' => 'required'
+            'body' => 'required',
+            // validate given value is present on channels table,  https://laravel.com/docs/9.x/validation#rule-exists
+            'channel_id' => 'required|exists:channels,id',
         ];
     }
 }
