@@ -26,9 +26,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-/*Route::get('/threads', [ThreadsController::class, 'index']);
+Route::get('/threads', [ThreadsController::class, 'index']);
 Route::get('/threads/create', [ThreadsController::class, 'create']);
 Route::post('/threads', [ThreadsController::class, 'store']);//->middleware('auth');
-Route::get('/threads/{thread}', [ThreadsController::class, 'show']);*/
-Route::resource('threads', ThreadsController::class);
-Route::post('/threads/{thread}/replies', [\App\Http\Controllers\RepliesController::class, 'store']);
+Route::get('/threads/{channel}/{thread}', [ThreadsController::class, 'show']);
+// Route::resource('threads', ThreadsController::class);
+Route::post('/threads/{channel}/{thread}/replies', [\App\Http\Controllers\RepliesController::class, 'store']);
