@@ -4,6 +4,7 @@ namespace Tests\Unit;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\Thread;
+use App\Models\Channel;
 
 class ThreadTest extends \Tests\TestCase
 {
@@ -38,5 +39,12 @@ class ThreadTest extends \Tests\TestCase
             'user_id' => 1
         ]);
         $this->assertCount(1, $this->thread->replies);
+    }
+
+    /** @test */
+    public function a_thread_belongs_to_a_channel()
+    {
+        $thread = create(Thread::class);
+        $this->assertInstanceOf(Channel::class, $thread->channel);
     }
 }
