@@ -50,4 +50,18 @@ class CreateThreadsTest extends TestCase
         $this->get('/threads/create')
             ->assertRedirect('/login');
     }
+
+    /** @test */
+    public function a_thread_requires_a_title()
+    {
+        // to refactor test, breaking them down to what you are trying to do
+        $this->publishThread(['title' => null])
+            ->assertSessionHasErrors('title');
+    }
+
+    public function publishThread($overrides = []) {
+        $this->signIn();
+        $thread = make(Thread::class, $overrides);
+        return $this->post('/threads', $thread->toArray());
+    }
 }
