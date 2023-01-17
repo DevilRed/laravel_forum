@@ -20,10 +20,12 @@ class CreateThreadsTest extends TestCase
         $this->signIn();
 
         // when we hit the endpoint to create a new thread
-        $thread = make(Thread::class);// make return the object in memory
+        $thread = create(Thread::class);// make return the object in memory
 
         // send data as array to endpoint
         $this->post('/threads', $thread->toArray());
+
+        // dd($thread->path());
 
         // when we visit the thread page
         $this->get($thread->path())
@@ -35,8 +37,9 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function guestMayNotCreateThreads()
     {
-        $thread = make(Thread::class);
-        $this->post('/threads', $thread->toArray());
+        $thread = create(Thread::class);
+        // dd($thread->path());
+        $this->post($thread->path(), $thread->toArray());
         // unauthenticated user will be redirected to the login route
         $this->get($thread->path())
             ->assertSee("login");
