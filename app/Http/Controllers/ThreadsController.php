@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ThreadRequest;
+use App\Models\Channel;
 use App\Models\Thread;
 use Illuminate\Http\Request;
 
@@ -20,9 +21,14 @@ class ThreadsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($channelSlug = null)
     {
-        $threads = Thread::orderBy('id', 'desc')->get();
+        if($channelSlug) {
+            $channelId = Channel::where('slug', $channelSlug)->first()->id;
+            $threads = Thread::where('channel_id', $channelId)->latest()->get();
+        } else {
+            $threads = Thread::orderBy('id', 'desc')->get();
+        }
         return view('threads.index', compact('threads'));
     }
 
