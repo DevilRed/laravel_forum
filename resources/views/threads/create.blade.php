@@ -12,7 +12,7 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="channel_id">Choose a channel</label>
-                                <select class="form-control">
+                                <select name="channel_id" class="form-control">
                                     <option value="">Choose one...</option>
                                     @foreach($channels as $channel)
                                         <option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected': '' }}>
@@ -20,14 +20,23 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('channel_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="title">Title</label>
                                 <input name="title" type="text" class="form-control">
+                                @error('title')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="body">Title</label>
                                 <textarea name="body" class="form-control" rows="8"></textarea>
+                                @error('body')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary">Publish</button>
