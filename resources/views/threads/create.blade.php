@@ -11,6 +11,17 @@
                         <form method="POST" action="/threads">
                             {{ csrf_field() }}
                             <div class="form-group">
+                                <label for="channel_id">Choose a channel</label>
+                                <select class="form-control">
+                                    <option value="">Choose one...</option>
+                                    @foreach($channels as $channel)
+                                        <option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected': '' }}>
+                                            {{ $channel->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="title">Title</label>
                                 <input name="title" type="text" class="form-control">
                             </div>

@@ -33,12 +33,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/threads">All threads</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/threads/create">Create thread</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Channels
                             </a>
                             <ul class="dropdown-menu">
-                                @foreach(\App\Models\Channel::all() as $channel)
+                                @foreach($channels as $channel)
                                     <li><a class="dropdown-item" href="/threads/{{ $channel->slug }}">{{ $channel->name }}</a></li>
                                 @endforeach
                             </ul>
