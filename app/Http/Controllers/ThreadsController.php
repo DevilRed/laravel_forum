@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ThreadRequest;
 use App\Models\Channel;
 use App\Models\Thread;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -24,10 +25,16 @@ class ThreadsController extends Controller
     public function index(Channel $channel)
     {
         if($channel->exists) {
-            $threads = $channel->threads()->latest()->get();
+            $threads = $channel->threads()->latest();
         } else {
-            $threads = Thread::orderBy('id', 'desc')->get();
+            $threads = Thread::orderBy('id', 'desc');
         }
+
+        if($username = \request('by')) {
+            $user = \App\Models\User::where('name', $username)->firstOrFail();
+            $threads->where('user_id', $user->id);
+        }
+        $threads = $threads->get();
         return view('threads.index', compact('threads'));
     }
 
