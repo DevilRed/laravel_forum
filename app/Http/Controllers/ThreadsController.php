@@ -25,10 +25,10 @@ class ThreadsController extends Controller
      */
     public function index(Channel $channel, ThreadFilters $filters)
     {
+        $threads = Thread::latest();
+
         if($channel->exists) {
-            $threads = $channel->threads()->latest();
-        } else {
-            $threads = Thread::orderBy('id', 'desc');
+            $threads->where('channel_id', $channel->id);
         }
 
         // apply query filter
