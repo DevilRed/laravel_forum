@@ -6,33 +6,23 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 /**
- * This class acts as a query scope class for filtering
+ * This class acts as a query scope class for filtering query by a given username
  * Class ThreadFilters
  * @package App\Filters
  */
-class ThreadFilters {
+class ThreadFilters extends Filters {
+    // override value from parent filters
+    // to run them they need to match method name
+    protected $filters = ['by'];
 
     /**
-     * ThreadFilters constructor.
-     * @param Request $request  laravel will inject it
-     */
-    public function __construct(protected Request $request)
-    {
-    }
-
-
-    /**
-     * local query scope method, return same query applied with 'by' filter
-     * query scope classes has to have an apply method
-     *
+     * @param mixed $username
      * @param $builder
      * @return mixed
      */
-    public function apply($builder)
+    public function by(string $username)
     {
-        if( !$username = $this->request->by) return $builder;
-
         $user = User::where('name', $username)->firstOrFail();
-        return $builder->where('user_id', $user->id);
+        return $this->builder->where('user_id', $user->id);
     }
 }
