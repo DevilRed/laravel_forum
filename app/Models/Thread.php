@@ -36,4 +36,14 @@ class Thread extends Model
         // use the reply relationship
         $this->replies()->create($reply);
     }
+
+    /**
+     * Query scope to accept a set of filters
+     * @param $query
+     * @param $filters
+     */
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
+    }
 }
