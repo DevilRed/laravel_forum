@@ -39,7 +39,8 @@
                 <div class="card">
                     <div class="card-body">
                         <p>
-                            This thread was published {{ $thread->created_at->diffForHumans() }} by <a href="#">{{ $thread->creator->name }}</a> and currently has {{ $thread->replies_count }} comments
+                            This thread was published {{ $thread->created_at->diffForHumans() }} by <a href="#">{{ $thread->creator->name }}</a> and currently has {{ $thread->replies_count }}
+                            {{Str::plural('comment', $thread->replies_count)}}
                         </p>
                     </div>
                 </div>
