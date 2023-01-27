@@ -15,6 +15,11 @@ class Thread extends Model
     {
         return $this->hasMany(Reply::class);
     }
+    // custom getter: replyCount
+    public function getReplyCountAttribute()
+    {
+        return $this->replies()->count();
+    }
 
     public function creator()
     {
