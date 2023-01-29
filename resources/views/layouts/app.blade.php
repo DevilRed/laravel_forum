@@ -15,6 +15,11 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <style>
+        body { padding-bottom: 100px; }
+        .level { display: flex; align-items: center; }
+        .flex { flex: 1; }
+    </style>
 </head>
 <body>
     <div id="app">
