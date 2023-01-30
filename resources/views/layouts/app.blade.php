@@ -42,8 +42,9 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/threads" class="nav-link">All Threads</a></li>
                                 @if(auth()->check())
-                                <li><a href="/threads?by={{ auth()->user()->name }}" class="nav-link">My Threads</a></li>
-                                    @endif
+                                    <li><a href="/threads?by={{ auth()->user()->name }}" class="nav-link">My Threads</a></li>
+                                @endif
+                                <li><a class="nav-link" href="/threads?popular=1">Popular All Time Threads</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
