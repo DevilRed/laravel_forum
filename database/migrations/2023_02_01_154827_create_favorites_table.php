@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // add polymorphic relationship table
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');

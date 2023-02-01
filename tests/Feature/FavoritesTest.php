@@ -18,9 +18,10 @@ class FavoritesTest extends TestCase
             ->assertRedirect('/login');
     }
 
-    ///** @test */
-    /*public function an_authenticated_user_can_favorite_any_reply()
+    /** @test */
+    public function an_authenticated_user_can_favorite_any_reply()
     {
+        $this->signIn();
         // what is going to be the favorite route
         // /replies/id/favorites
         $reply = create(Reply::class);// in reply factory the thread_id is automatically added
@@ -31,5 +32,5 @@ class FavoritesTest extends TestCase
 
         // it should be recorded in the database
         $this->assertCount(1, $reply->favorites);
-    }*/
+    }
 }
