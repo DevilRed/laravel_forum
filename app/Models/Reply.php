@@ -31,10 +31,17 @@ class Reply extends Model
         return $this->morphMany(Favorite::class, 'favorited');
     }
 
+    /**
+     * using a polymorphic relationship for favorites table
+     * eloquent will handle the favorited prefixed columns, so just add the remain data
+     */
     public function favorite()
     {
-        // using a polymorphic relationship for favorites table
-        // eloquent will handle the favorited prefixed columns, so just add the remain data
-        $this->favorites()->create(['user_id' => auth()->id()]);
+        // prevent user favorite same reply more than once
+        // if logged user doesn't have a row with the reply
+        $attributes = ['user_id' => auth()->id()];
+        if(!$this->favorites()->where($attributes)->exists()) {
+            return $this->favorites()->create($attributes);
+        }
     }
 }

@@ -20,6 +20,9 @@ return new class extends Migration
             $table->unsignedInteger('favorited_id');
             $table->string('favorited_type', 50);
             $table->timestamps();
+
+            // add unique constraint to prevent user favorite a reply more than once
+            $table->unique(['user_id', 'favorited_id', 'favorited_type']);
         });
     }
 
