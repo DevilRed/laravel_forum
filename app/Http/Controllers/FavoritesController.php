@@ -19,8 +19,6 @@ class FavoritesController extends Controller
 
     public function store(Reply $reply)
     {
-        // using a polymorphic relationship for favorites table
-        // eloquent will handle the favorited prefixed columns, so just add the remain data
-        $reply->favorites()->create(['user_id' => auth()->id()]);
+        $reply->favorite();
     }
 }

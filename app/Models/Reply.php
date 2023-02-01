@@ -30,4 +30,11 @@ class Reply extends Model
         // name param in morphMany should be the same prefix used in polymorphic table
         return $this->morphMany(Favorite::class, 'favorited');
     }
+
+    public function favorite()
+    {
+        // using a polymorphic relationship for favorites table
+        // eloquent will handle the favorited prefixed columns, so just add the remain data
+        $this->favorites()->create(['user_id' => auth()->id()]);
+    }
 }
