@@ -26,7 +26,9 @@ class Thread extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)
+            ->withCount('favorites')// include count of relation
+            ->with('owner');
     }
     // custom getter: replyCount
     public function getReplyCountAttribute()
