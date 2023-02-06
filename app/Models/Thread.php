@@ -10,6 +10,8 @@ class Thread extends Model
     use HasFactory;
 
     protected $guarded = [];// to specify those fields which are not mass assignable.
+    // eager load relationship for all model queries
+    protected $with = ['creator', 'channel'];
 
     /**
      * laravel trigger this automatically like construct

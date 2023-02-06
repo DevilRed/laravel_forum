@@ -26,7 +26,7 @@ class ThreadsController extends Controller
     public function index(Channel $channel, ThreadFilters $filters)
     {
         // eager load relationship
-        $threads = Thread::with('channel')->latest();
+        $threads = Thread::latest();
 
         if($channel->exists) {
             $threads->where('channel_id', $channel->id);

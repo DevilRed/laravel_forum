@@ -53,4 +53,10 @@ class Reply extends Model
         // !! cast result to boolean
         return !! $this->favorites->where('user_id', auth()->id())->count();
     }
+
+    // add custom attribute
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
+    }
 }
