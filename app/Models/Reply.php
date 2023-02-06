@@ -10,6 +10,8 @@ class Reply extends Model
     use HasFactory;
 
     protected $guarded = [];// opposite of $fillable, specify fields which are not mass assignable
+    // always eager load relationship for every single query
+    protected $with = ['owner', 'favorites'];
 
     public function thread()
     {
@@ -47,6 +49,8 @@ class Reply extends Model
 
     public function isFavorited()
     {
-        return $this->favorites()->where('user_id', auth()->id())->exists();
+        // use the favorites eager loaded globally
+        // !! cast result to boolean
+        return !! $this->favorites->where('user_id', auth()->id())->count();
     }
 }
