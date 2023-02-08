@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ThreadsController;
 use App\Http\Controllers\RepliesController;
 use App\Http\Controllers\FavoritesController;
+use App\Http\Controllers\ProfilesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,5 @@ Route::get('/threads/{channel}/{thread}', [ThreadsController::class, 'show']);
 Route::get('/threads/{channel}', [ThreadsController::class, 'index']);
 Route::post('/threads/{channel}/{thread}/replies', [\App\Http\Controllers\RepliesController::class, 'store']);
 Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store']);
+
+Route::get('/profiles/{user}', [ProfilesController::class, 'show']);
