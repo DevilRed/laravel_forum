@@ -37,4 +37,4 @@ Route::get('/threads/{channel}', [ThreadsController::class, 'index']);
 Route::post('/threads/{channel}/{thread}/replies', [\App\Http\Controllers\RepliesController::class, 'store']);
 Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store']);
 
-Route::get('/profiles/{user}', [ProfilesController::class, 'show']);
+Route::get('/profiles/{user}', [ProfilesController::class, 'show'])->name('profile');
