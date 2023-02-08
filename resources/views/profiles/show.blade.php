@@ -9,7 +9,7 @@
             </h1>
         </div>
 
-        @foreach($profileUser->threads as $thread)
+        @foreach($threads as $thread)
             <div class="card">
                 <div class="card-header">
                     <div class="level">
@@ -28,5 +28,7 @@
                 </div>
             </div>
         @endforeach
+
+        {{ $threads->links() }}
     </div>
 @endsection
