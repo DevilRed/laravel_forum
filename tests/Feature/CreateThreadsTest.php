@@ -106,6 +106,7 @@ class CreateThreadsTest extends TestCase
     {
         $thread = create(Thread::class);
         $response = $this->json('DELETE', $thread->path());
-        $response->assertRedirect('/login');
+        // $response->assertRedirect('/login');
+        $response->assertStatus(401);
     }
 }
