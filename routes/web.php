@@ -32,9 +32,11 @@ Route::get('/threads', [ThreadsController::class, 'index']);
 Route::get('/threads/create', [ThreadsController::class, 'create']);
 Route::post('/threads', [ThreadsController::class, 'store']);//->middleware('auth');
 Route::get('/threads/{channel}/{thread}', [ThreadsController::class, 'show']);
-// Route::resource('threads', ThreadsController::class);
+Route::delete('/threads/{channel}/{thread}', [ThreadsController::class, 'destroy']);
 Route::get('/threads/{channel}', [ThreadsController::class, 'index']);
 Route::post('/threads/{channel}/{thread}/replies', [\App\Http\Controllers\RepliesController::class, 'store']);
+
+
 Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store']);
 
 Route::get('/profiles/{user}', [ProfilesController::class, 'show'])->name('profile');
