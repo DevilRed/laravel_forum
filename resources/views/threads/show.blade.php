@@ -11,12 +11,13 @@
                                 <a href="{{ route('profile', $thread->creator) }}">{{$thread->creator->name }}</a> posted:
                     {{$thread->title }}
                             </span>
-
+                            @can('update', $thread)
                             <form action="{{ $thread->path() }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <button class="btn btn-link" type="submit">Delete Thread</button>
                             </form>
+                            @endcan
                         </div>
                     </div>
 
