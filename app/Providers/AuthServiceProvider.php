@@ -5,6 +5,8 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Thread;
 use App\Policies\ThreadPolicy;
+use Illuminate\Support\Facades\Gate;
+// use Illuminate\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -27,6 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // bypass any policies for admin case
+        Gate::before(function ($user) {
+            if ($user->name == 'dos') return true;
+        });
     }
 }
