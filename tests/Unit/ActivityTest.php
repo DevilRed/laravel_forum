@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Activity;
+use App\Models\Reply;
 use App\Models\Thread;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -27,5 +28,14 @@ class ActivityTest extends TestCase
         // ensure data consistency
         $activity = Activity::first();
         $this->assertEquals($activity->subject->id, $thread->id);
+    }
+
+
+    /** @test */
+    public function it_records_activity_when_a_reply_is_created()
+    {
+        $this->signIn();
+        $reply = create(Reply::class);
+        $this->assertEquals(2, Activity::count());
     }
 }
