@@ -12,8 +12,8 @@ trait RecordsActivity {
          * whenever a thread is created in database, as part of that
          * create a new record in Activities table
          */
-        static::created(function($thread) {
-            $thread->recordActivity('created');
+        static::created(function($model) {
+            $model->recordActivity('created');
         });
     }
 
