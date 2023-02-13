@@ -9,6 +9,14 @@ class Activity extends Model
 {
     use HasFactory;
 
-
     protected $guarded = [];
+
+    /**
+     * Complete polymorphic relationship
+     * an activity belongs to many "models"
+     */
+    public function subject()
+    {
+        return $this->morphTo();
+    }
 }

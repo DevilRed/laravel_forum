@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Activity;
 use App\Models\Thread;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -22,5 +23,9 @@ class ActivityTest extends TestCase
             'subject_id' => $thread->id,
             'subject_type' => 'App\Models\Thread'
         ]);
+
+        // ensure data consistency
+        $activity = Activity::first();
+        $this->assertEquals($activity->subject->id, $thread->id);
     }
 }

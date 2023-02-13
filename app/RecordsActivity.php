@@ -35,6 +35,7 @@ trait RecordsActivity {
 
     // define polymorphic relationship, so that columns "subject_" are populated by laravel
     public function activity() {
+        // a model has many activities
         return $this->morphMany(Activity::class, 'subject');
     }
 }
