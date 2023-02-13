@@ -7,6 +7,7 @@ use App\Models\Thread;
 trait RecordsActivity {
     // for any trait used in laravel, there is an initialization method, the method should be  "boot[TraitName]"
     protected static function bootRecordsActivity() {
+        if(auth()->guest()) return;
         // model events
         /**
          * whenever a thread is created in database, as part of that
