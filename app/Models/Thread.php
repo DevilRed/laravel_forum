@@ -31,13 +31,22 @@ class Thread extends Model
          * create a new record in Activities table
          */
         static::created(function($thread) {
-            Activity::create([
-                'user_id' => auth()->id(),
-                'type' => 'created_thread',
-                'subject_id' => $thread->id,
-                'subject_type' => 'App\Models\Thread'
-            ]);
+            $thread->recordActivity('created');
         });
+    }
+
+    protected function recordActivity($event) {
+        Activity::create([
+            'user_id' => auth()->id(),
+            'type' => $this->getActivityType($event),
+            'subject_id' => $this->id,
+            'subject_type' => get_class($this)
+        ]);
+    }
+
+    protected function getActivityType($event)
+    {
+        return $event . '_' . strtolower((new \ReflectionClass($this))->getShortName());// dynamically add the word thread
     }
 
     public function replies()
