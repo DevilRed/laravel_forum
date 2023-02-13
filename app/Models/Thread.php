@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
     use HasFactory;
+
+    use RecordsActivity;
 
     protected $guarded = [];// to specify those fields which are not mass assignable.
     // eager load relationship for all model queries
@@ -33,20 +36,6 @@ class Thread extends Model
         static::created(function($thread) {
             $thread->recordActivity('created');
         });
-    }
-
-    protected function recordActivity($event) {
-        Activity::create([
-            'user_id' => auth()->id(),
-            'type' => $this->getActivityType($event),
-            'subject_id' => $this->id,
-            'subject_type' => get_class($this)
-        ]);
-    }
-
-    protected function getActivityType($event)
-    {
-        return $event . '_' . strtolower((new \ReflectionClass($this))->getShortName());// dynamically add the word thread
     }
 
     public function replies()
