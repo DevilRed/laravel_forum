@@ -12,9 +12,21 @@ trait RecordsActivity {
          * whenever a thread is created in database, as part of that
          * create a new record in Activities table
          */
-        static::created(function($model) {
-            $model->recordActivity('created');
-        });
+        foreach (static::getActivitiesToRecord() as $event) {
+            static::$event(function ($model) use ($event) {
+                $model->recordActivity($event);
+            });
+        }
+    }
+
+    /**
+     * Select what model events are gonna be tracked
+     * values returned must match laravel model events
+     * @return string[]
+     */
+    protected static function getActivitiesToRecord()
+    {
+        return ['created'];
     }
 
     protected function getActivityType($event)
