@@ -24,6 +24,20 @@ class Thread extends Model
         static::addGlobalScope('replyCount', function($builder) {
             $builder->withCount('replies');
         });
+
+        // model events
+        /**
+         * whenever a thread is created in database, as part of that
+         * create a new record in Activities table
+         */
+        static::created(function($thread) {
+            Activity::create([
+                'user_id' => auth()->id(),
+                'type' => 'created_thread',
+                'subject_id' => $thread->id,
+                'subject_type' => 'App\Models\Thread'
+            ]);
+        });
     }
 
     public function replies()
