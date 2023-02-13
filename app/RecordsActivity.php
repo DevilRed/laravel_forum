@@ -19,16 +19,22 @@ trait RecordsActivity {
 
     protected function getActivityType($event)
     {
-        return $event . '_' . strtolower((new \ReflectionClass($this))->getShortName());// dynamically add the word thread
+        // dynamically add the word thread
+        $type = strtolower((new \ReflectionClass($this))->getShortName());
+        return "{$event}_{$type}";
     }
 
     protected function recordActivity($event)
     {
-        Activity::create([
+        // use polymorphic relationship
+        $this->activity()->create([
             'user_id' => auth()->id(),
             'type' => $this->getActivityType($event),
-            'subject_id' => $this->id,
-            'subject_type' => get_class($this)
         ]);
+    }
+
+    // define polymorphic relationship, so that columns "subject_" are populated by laravel
+    public function activity() {
+        return $this->morphMany(Activity::class, 'subject');
     }
 }
