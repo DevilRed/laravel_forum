@@ -12,19 +12,7 @@
                 </div>
 
                 @foreach($activities as $activity)
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="level">
-                                <span class="flex">
-                                    @include("profiles.activities.{$activity->type}")
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            {{ $activity->subject->body }}
-                        </div>
-                    </div>
+                    @include("profiles.activities.{$activity->type}")
                 @endforeach
 
 {{--                {{ $threads->links() }}--}}
