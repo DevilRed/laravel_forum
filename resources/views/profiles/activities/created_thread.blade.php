@@ -1,17 +1,12 @@
-<div class="card">
-    <div class="card-header">
-        <div class="level">
-            <span class="flex">
-                {{ $profileUser->name }} published a <a href="{{ $activity->subject->path() }}">{{ $activity->subject->title }}</a>
+@component('profiles.activities.activity')
+    @slot('heading')
+        {{ $profileUser->name }} published a <a href="{{ $activity->subject->path() }}">{{ $activity->subject->title }}</a>
+    @endslot
 
-            </span>
-        </div>
-    </div>
-
-    <div class="card-body">
+    @slot('body')
         {{ $activity->subject->body }}
-    </div>
-</div>
+    @endslot
+@endcomponent
 
 
 
