@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Activity;
 use App\Models\Reply;
 use App\Models\Thread;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -37,5 +38,27 @@ class ActivityTest extends TestCase
         $this->signIn();
         $reply = create(Reply::class);
         $this->assertEquals(2, Activity::count());
+    }
+
+
+    /** @test */
+    public function it_fetches_a_feed_for_any_user()
+    {
+        // given we have a thread
+        $this->signIn();
+        create(Thread::class, ['user_id' => auth()->id()]);
+        // and another thread from a week ago
+        create(Thread::class, [
+            'user_id' => auth()->id(),
+            'created_at' => Carbon::now()->subWeek()
+        ]);
+
+        // when we fetch their feed
+        $feed = Activity::feed(auth()->user());
+
+        // then it should be returned in the proper format, from newest to oldest
+        $this->assertTrue($feed->keys()->contains(
+            Carbon::now()->format('Y-m-d')
+        ));
     }
 }
