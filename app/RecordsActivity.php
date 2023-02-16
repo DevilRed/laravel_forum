@@ -18,6 +18,12 @@ trait RecordsActivity {
                 $model->recordActivity($event);
             });
         }
+
+        // eloquent event listener
+        // when the model is deleting delete its activity
+        static::deleting(function ($model) {
+            $model->activity()->delete();
+        });
     }
 
     /**
