@@ -13,10 +13,9 @@ import { createApp } from 'vue';
  * to use in your application's views. An example is included for you.
  */
 
-// const app = createApp({});
-
-import ExampleComponent from './components/ExampleComponent.vue';
-// app.component('example-component', ExampleComponent);
+import FlashComponent from './components/Flash.vue';
+const app = createApp(FlashComponent);
+app.component('flash', FlashComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -36,5 +35,4 @@ import ExampleComponent from './components/ExampleComponent.vue';
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-// app.mount('#app');
-createApp(ExampleComponent).mount('#app');
+app.mount('#app');
